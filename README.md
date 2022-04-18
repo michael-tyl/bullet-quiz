@@ -13,6 +13,3 @@ Quiz games, like Quizlet, Kahoot, Gimkit, and Blooket, have been on the rise, es
 Uses Express and socket.io for networking features
 
 Static version live on https://ragehoot.github.io (does not support multiplayer)
-
-Credit to this Ably tutorial: https://dev.to/ablydev/building-a-realtime-multiplayer-browser-game-in-less-than-a-day-part-1-4-14pm
-(Ably usage now deprecated after switch to socket.io)

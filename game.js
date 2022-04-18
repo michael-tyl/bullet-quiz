@@ -1,7 +1,5 @@
 // server connectivity
 let global_continue_waiting_for_start_really_long_variable_name_hello_future_viewers = true;
-// CHANGE LATER IF SWITCHING SERVER
-const BASE_SERVER_URL = "http://ragehoot.ydns.eu";
 
 let globalChannel;
 let myClientId;
@@ -11,12 +9,6 @@ let gameRoomChannel;
 const myNickname = localStorage.getItem("nickname");
 const roomCode = localStorage.getItem("roomCode");
 const socket = io();
-
-// connect to Ably
-// const realtime = Ably.Realtime(
-// {
-//   authUrl: BASE_SERVER_URL + "/auth",
-// });
 
 // can change uniqueId func later if necessary
 // maybe should be done server side?
@@ -29,10 +21,6 @@ const myId = uniqueId();
 myClientId = myId;
 
 let global_rand_arr = []; 
-
-// for (let i = 0; i < 53; i++) {
-//   global_rand_arr.push(Math.random());
-// }
 
 /*
 global_player_arr = {
@@ -58,47 +46,6 @@ socket.on("random-arr:" + roomCode, (data) => {
   global_continue_waiting_for_start_really_long_variable_name_hello_future_viewers = false;
   start_new_question();
 });
-
-// realtime.connection.once("connected", () => 
-// {
-//   myClientId = realtime.auth.clientId;
-//   //gameRoom = realtime.channels.get("game-room");
-//   //myChannel = realtime.channels.get("clientChannel-" + myClientId);
-//   gameRoomChannel = realtime.channels.get(roomCode + ":primary");
-//   gameRoomChannel.presence.enter({nickname: myNickname});
-
-//   gameRoomChannel.subscribe("random-arr", (msg) => 
-//   {
-//     global_rand_arr = msg.data.randomArr;
-//     global_continue_waiting_for_start_really_long_variable_name_hello_future_viewers = false;
-//     start_new_question();
-//   });
-  
-//   /* removed because sending random arr signals start
-//   // wait for game to start
-//   gameRoomChannel.subscribe("start", (msg) => 
-//   {
-//     console.log("starting game");
-//   });*/
-
-//   // update game data
-//   gameRoomChannel.subscribe("game-state", (msg) => 
-//   {
-//     global_player_arr = msg.data.playerList;
-//   });
-
-//   // load new question
-//   gameRoomChannel.subscribe("question", (msg) => 
-//   {
-
-//   });
-
-//   // game end
-//   gameRoomChannel.subscribe("game-end", (msg) =>
-//   {
-
-//   });
-// });
 
 const width = screen.availWidth-300;
 const height = screen.availHeight;
@@ -1159,7 +1106,6 @@ function update_main_loop()
 
     global_timer+=1;
 
-    //console.log(downPressedKeys);
     if (global_timer == global_time_wait)
     {
       question_ended();
@@ -1272,13 +1218,6 @@ function update_main_loop()
 
 function publish_position()
 {
-  // gameRoomChannel.publish("player-data", 
-  // {
-  //   x: Math.floor(player.pos_x),
-  //   y: Math.floor(player.pos_y),
-  //   score: Math.floor(global_score),
-  //   iframes: player.current_immunity_frames
-  // }); // player.current_immunity_frames
   socket.emit("player-state", {
     clientId: myId,
     gameCode: roomCode,
